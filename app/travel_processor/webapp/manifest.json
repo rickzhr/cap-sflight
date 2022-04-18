@@ -101,22 +101,35 @@
                 }
             }
         },
+        "rootView": {
+            "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+            "type": "XML",
+            "async": true,
+            "id": "appRootView"
+        },
         "routing": {
+            "config": {
+                "routerClass": "sap.f.routing.Router",
+                "flexibleColumnLayout": {
+                    "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+                    "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+                }
+            },
             "routes": [
                 {
                     "pattern": ":?query:",
                     "name": "TravelList",
-                    "target": "TravelList"
+                    "target": ["TravelList"]
                 },
                 {
                     "pattern": "Travel({key}):?query:",
                     "name": "TravelObjectPage",
-                    "target": "TravelObjectPage"
+                    "target": ["TravelList", "TravelObjectPage"]
                 },
                 {
                     "pattern": "Travel({key})/to_Booking({key2}):?query:",
                     "name": "BookingObjectPage",
-                    "target": "BookingObjectPage"
+                    "target": ["TravelList", "TravelObjectPage", "BookingObjectPage"]
                 }
             ],
             "targets": {
@@ -124,6 +137,7 @@
                     "type": "Component",
                     "id": "TravelList",
                     "name": "sap.fe.templates.ListReport",
+                    "controlAggregation": "beginColumnPages",
                     "options": {
                         "settings": {
                             "entitySet": "Travel",
@@ -143,6 +157,7 @@
                     "type": "Component",
                     "id": "TravelObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
+                    "controlAggregation": "midColumnPages",
                     "options": {
                         "settings": {
                             "entitySet": "Travel",
@@ -176,6 +191,7 @@
                     "type": "Component",
                     "id": "BookingObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
+                    "controlAggregation": "endColumnPages",
                     "options": {
                         "settings": {
                             "entitySet": "Booking",
